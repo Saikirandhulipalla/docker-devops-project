@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+
+  devops-app:
+    build: .
+    container_name: devops-app
+    environment:
+      - NAME=Sai
+    networks:
+      - devops-net
+
+  nginx-proxy:
+    build: ./nginx
+    container_name: nginx-proxy
+    ports:
+      - "8080:80"
+    depends_on:
+      - devops-app
+    networks:
+      - devops-net
+
+networks:
+  devops-net:
+    driver: bridge
+
